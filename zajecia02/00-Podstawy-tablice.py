@@ -39,4 +39,21 @@ print("Posortowane oceny od najmniejszej:",jPolskiOceny)
 jPolskiOceny.sort(reverse=True)
 print("Posortowane oceny od największej:",jPolskiOceny)
 
+#Przykład obliczania średniej ocen
+
+sumaOcenJpolski = 0 # tworzymy zmienne do zsumowania i podzielenia przez ilość ocen - w ten sposób uzyskamy średnią arytmetyczną ocen z języka polskiego
+sredniaJpolski = 0
+liczbaOcenJezykPolski = len(jPolskiOceny); # zliczamy ilość ocen - czyli ile ocen znajduje się w tablicy jPolskiOceny
+
+# Tworzymy pętlę do zsumwania wszystkich ocen - tworzymy zmienną pomocniczą ocena
+
+for ocena in jPolskiOceny:
+    sumaOcenJpolski = sumaOcenJpolski + ocena
+
+print("Suma ocen z języka polskiego:", sumaOcenJpolski)
+print("Średnia ocen z języka polskiego:", sumaOcenJpolski/liczbaOcenJezykPolski)
+print("Zaookrąglona średnia ocen do 2 miejsc po przecinku z języka polskiego:", round(sumaOcenJpolski/liczbaOcenJezykPolski,2))
+
+
+
 
