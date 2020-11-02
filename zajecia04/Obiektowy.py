@@ -35,7 +35,7 @@ background = pygame.transform.scale(pygame.image.load(os.path.join("", "Backgrou
 class Hero:
     def __init__(self, x, y):
         # Walk
-        self.x = x
+        self.x =x
         self.y = y
         self.velx = 10
         self.vely = 10
