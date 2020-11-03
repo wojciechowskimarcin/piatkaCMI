@@ -8,8 +8,9 @@ win_width = 800
 win = pygame.display.set_mode((win_width, win_height))
 
 # Load and Size Images
-stationary = pygame.image.load(os.path.join("Hero", "standing.png"))
+background = pygame.transform.scale(pygame.image.load(os.path.join("", "Background.png")), (win_width, win_height))
 bullet_img = pygame.transform.scale(pygame.image.load(os.path.join("images", "bullet.png")), (10,10))
+stationary = pygame.image.load(os.path.join("Hero", "standing.png"))
 left = [pygame.image.load(os.path.join("Hero", "L1.png")),
         pygame.image.load(os.path.join("Hero", "L2.png")),
         pygame.image.load(os.path.join("Hero", "L3.png")),
@@ -30,12 +31,12 @@ right =[pygame.image.load(os.path.join("Hero", "R1.png")),
         pygame.image.load(os.path.join("Hero", "R8.png")),
         pygame.image.load(os.path.join("Hero", "R9.png"))
         ]
-background = pygame.transform.scale(pygame.image.load(os.path.join("", "Background.png")), (win_width, win_height))
+
 
 class Hero:
     def __init__(self, x, y):
         # Walk
-        self.x =x
+        self.x = x
         self.y = y
         self.velx = 10
         self.vely = 10
@@ -100,10 +101,11 @@ class Hero:
 class Bullet:
     def __init__(self, x, y, direction):
         self.x = x+15
-        self.y = y+15
+        self.y = y+25
         self.direction = direction
     def draw_bullet(self):
-        win.blit(bullet_img, (self.x, self.y))
+        if self.direction == 1 or self.direction == -1:
+            win.blit(bullet_img, (self.x, self.y))
     def move(self):
         if self.direction == 1:
             self.x += 15
