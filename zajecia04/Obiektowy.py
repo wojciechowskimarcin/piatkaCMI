@@ -9,7 +9,7 @@ win = pygame.display.set_mode((win_width, win_height))
 
 # Load and Size Images
 stationary = pygame.image.load(os.path.join("Hero", "standing.png"))
-bullet = pygame.transform.scale(pygame.image.load(os.path.join("images", "bullet.png")), (10,10))
+bullet_img = pygame.transform.scale(pygame.image.load(os.path.join("images", "bullet.png")), (10,10))
 left = [pygame.image.load(os.path.join("Hero", "L1.png")),
         pygame.image.load(os.path.join("Hero", "L2.png")),
         pygame.image.load(os.path.join("Hero", "L3.png")),
@@ -44,6 +44,7 @@ class Hero:
         self.stepIndex = 0
         # Jump
         self.jump = False
+        self.bullets = []
 
     def move_hero(self, userInput):
         if userInput[pygame.K_RIGHT] and self.x <= win_width - 62:
@@ -60,7 +61,6 @@ class Hero:
             self.stepIndex = 0
             self.face_right = False
             self.face_left = False
-
 
     def draw(self, win):
         if self.stepIndex >= 9:
@@ -84,11 +84,38 @@ class Hero:
             self.jump = False
             self.vely = 10
 
+    def direction(self):
+        if self.face_right:
+            return 1
+        if self.face_left:
+            return -1
+
+    def shoot(self):
+        if userInput[pygame.K_f]:
+            bullet = Bullet(self.x, self.y, self.direction())
+            self.bullets.append(bullet)
+        for bullet in self.bullets:
+            bullet.move()
+
+class Bullet:
+    def __init__(self, x, y, direction):
+        self.x = x+15
+        self.y = y+15
+        self.direction = direction
+    def draw_bullet(self):
+        win.blit(bullet_img, (self.x, self.y))
+    def move(self):
+        if self.direction == 1:
+            self.x += 15
+        if self.direction == -1:
+            self.x -= 15
 
 # Draw Game
 def draw_game():
     win.blit(background, (0,0))
     player.draw(win)
+    for bullet in player.bullets:
+        bullet.draw_bullet()
     #player1.draw(win)
     pygame.time.delay(30)
     pygame.display.update()
@@ -107,6 +134,9 @@ while run:
 
     # Wejście
     userInput = pygame.key.get_pressed()
+
+    # Strzelanie
+    player.shoot()
 
     # Poruszanie się
     player.move_hero(userInput)
